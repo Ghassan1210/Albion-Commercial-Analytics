@@ -166,7 +166,7 @@ The pipeline entry point is `run_pipeline.py`; it stops on a failed milestone an
 
 ## 12. Quality assurance
 
-The current focused pytest run passed 31 tests. The eight export row counts are 761, 5,131, 5,943, 1,037,091, 18,290, 11,990, 9 and 14,199 respectively. Dimension keys are unique, simulation product keys are covered, and blank customer IDs are retained as anonymous activity. The fixture/full acquisition tests write the shared provenance manifest while they run; after executing pytest, restore the genuine manifest and report with:
+The current focused pytest run passed 31 tests. The eight export row counts are 761, 5,131, 5,943, 1,037,091, 18,290, 11,990, 9 and 14,199 respectively. Dimension keys are unique, simulation product keys are covered, and blank customer IDs are retained as anonymous activity. The test suite now snapshots and restores the shared provenance manifest around each test, so fixture-mode tests do not leave the project in fixture mode. If a test is run outside pytest, restore the genuine manifest and report with:
 
 ```powershell
 $env:PYTHONPATH = "src"

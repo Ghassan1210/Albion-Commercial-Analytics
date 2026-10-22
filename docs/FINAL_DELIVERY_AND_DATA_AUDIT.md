@@ -94,7 +94,7 @@ The user reported seeing all five dashboards in Desktop, but that report could n
 
 ## Reproducibility repair
 
-The pipeline now invokes `reporting.final_validation_report` after the reporting modules. The Power BI package generator no longer emits the obsolete `fact_inventory[sim_date]` placeholder; it emits the valid scenario-grain `Sim Working Capital GBP` measure.
+The pipeline now invokes `reporting.final_validation_report` after the reporting modules. The Power BI package generator no longer emits the obsolete `fact_inventory[sim_date]` placeholder; it emits the valid scenario-grain `Sim Working Capital GBP` measure. `tests\conftest.py` now restores the shared provenance manifest after each fixture/full acquisition test, preventing test order from leaving the project in fixture mode.
 
 ## Reproducibility and refresh
 
