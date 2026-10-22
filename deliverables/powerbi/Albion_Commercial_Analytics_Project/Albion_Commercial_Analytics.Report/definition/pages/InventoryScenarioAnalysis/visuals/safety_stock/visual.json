@@ -1,0 +1,58 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "safety_stock",
+  "position": {
+    "x": 24,
+    "y": 190,
+    "z": 0,
+    "height": 430,
+    "width": 760,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "sim_inventory_sku_scenarios"
+                    }
+                  },
+                  "Property": "sim_abc_class"
+                }
+              },
+              "queryRef": "sim_inventory_sku_scenarios.sim_abc_class",
+              "nativeQueryRef": "sim_abc_class",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "sim_inventory_sku_scenarios"
+                    }
+                  },
+                  "Property": "sim_safety_stock_units"
+                }
+              },
+              "queryRef": "sim_inventory_sku_scenarios.sim_safety_stock_units",
+              "nativeQueryRef": "sim_safety_stock_units",
+              "active": true
+            }
+          ]
+        }
+      },
+      "drillFilterOtherVisuals": true
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "top_products",
+  "position": {
+    "x": 24,
+    "y": 190,
+    "z": 0,
+    "height": 430,
+    "width": 760,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_product"
+                    }
+                  },
+                  "Property": "canonical_description"
+                }
+              },
+              "queryRef": "dim_product.canonical_description",
+              "nativeQueryRef": "canonical_description",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_merchandise_sales"
+                    }
+                  },
+                  "Property": "Positive Merchandise Sales GBP"
+                }
+              },
+              "queryRef": "fact_merchandise_sales.Positive Merchandise Sales GBP",
+              "nativeQueryRef": "Positive Merchandise Sales GBP"
+            }
+          ]
+        }
+      },
+      "drillFilterOtherVisuals": true
+    }
+  }
+}

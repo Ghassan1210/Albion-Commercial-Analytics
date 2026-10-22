@@ -1,0 +1,58 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "reorder_point",
+  "position": {
+    "x": 810,
+    "y": 350,
+    "z": 0,
+    "height": 270,
+    "width": 430,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "sim_inventory_sku_scenarios"
+                    }
+                  },
+                  "Property": "sim_sb_regime"
+                }
+              },
+              "queryRef": "sim_inventory_sku_scenarios.sim_sb_regime",
+              "nativeQueryRef": "sim_sb_regime",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "sim_inventory_sku_scenarios"
+                    }
+                  },
+                  "Property": "sim_reorder_point_units"
+                }
+              },
+              "queryRef": "sim_inventory_sku_scenarios.sim_reorder_point_units",
+              "nativeQueryRef": "sim_reorder_point_units",
+              "active": true
+            }
+          ]
+        }
+      },
+      "drillFilterOtherVisuals": true
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "scenario_cost",
+  "position": {
+    "x": 330,
+    "y": 24,
+    "z": 0,
+    "height": 300,
+    "width": 520,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "sim_inventory_sku_scenarios"
+                    }
+                  },
+                  "Property": "scenario"
+                }
+              },
+              "queryRef": "sim_inventory_sku_scenarios.scenario",
+              "nativeQueryRef": "scenario",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "sim_inventory_sku_scenarios"
+                    }
+                  },
+                  "Property": "sim_annual_inventory_cost_gbp"
+                }
+              },
+              "queryRef": "sim_inventory_sku_scenarios.sim_annual_inventory_cost_gbp",
+              "nativeQueryRef": "sim_annual_inventory_cost_gbp",
+              "active": true
+            }
+          ]
+        }
+      },
+      "drillFilterOtherVisuals": true
+    }
+  }
+}

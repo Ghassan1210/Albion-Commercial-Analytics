@@ -1,0 +1,69 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "audit_waterfall",
+  "position": {
+    "x": 810,
+    "y": 190,
+    "z": 0,
+    "height": 430,
+    "width": 430,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_audit_waterfall"
+                    }
+                  },
+                  "Property": "primary_audit_category"
+                }
+              },
+              "queryRef": "fact_audit_waterfall.primary_audit_category",
+              "nativeQueryRef": "primary_audit_category",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_audit_waterfall"
+                    }
+                  },
+                  "Property": "total_rows"
+                }
+              },
+              "queryRef": "fact_audit_waterfall.total_rows",
+              "nativeQueryRef": "total_rows",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_audit_waterfall"
+                    }
+                  },
+                  "Property": "calculable_signed_gbp"
+                }
+              },
+              "queryRef": "fact_audit_waterfall.calculable_signed_gbp",
+              "nativeQueryRef": "calculable_signed_gbp",
+              "active": true
+            }
+          ]
+        }
+      },
+      "drillFilterOtherVisuals": true
+    }
+  }
+}

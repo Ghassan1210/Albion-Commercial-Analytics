@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "working_capital",
+  "position": {
+    "x": 24,
+    "y": 24,
+    "z": 0,
+    "height": 140,
+    "width": 280,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "sim_inventory_sku_scenarios"
+                    }
+                  },
+                  "Property": "Sim Working Capital GBP"
+                }
+              },
+              "queryRef": "sim_inventory_sku_scenarios.Sim Working Capital GBP",
+              "nativeQueryRef": "Sim Working Capital GBP"
+            }
+          ]
+        }
+      },
+      "drillFilterOtherVisuals": true
+    }
+  }
+}
