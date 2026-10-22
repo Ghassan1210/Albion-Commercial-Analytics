@@ -7,7 +7,7 @@
 
 The genuine UCI Online Retail II CSV is present and its SHA-256 is `32569a66f3842a82b0d8c4d63b263c5d98a76bde5d1f65c6c01bf457e541d3a9`. The eight Power BI exports are present at `deliverables\powerbi\data_model_exports` with the expected row counts. Read-only reconciliation reproduces the documented merchandise, returns, non-merchandise, net merchandise and total signed-value controls exactly. The focused test suite passes 31 tests.
 
-The editable PBIP source is available at `deliverables\powerbi\Albion_Commercial_Analytics_Project\Albion_Commercial_Analytics.pbip`; 34 JSON definitions parse and the model contains eight business tables, the nine intended business relationships, and twelve measures. The canonical PBIX is **not present**. Power BI Desktop previously displayed all eight expected table row counts but also showed the generic incomplete/no-data warning; that warning remains unverified as fully resolved. The next required action is to open the PBIP in Desktop, investigate/refresh the warning, and use **File → Save As** to create `deliverables\powerbi\Albion_Commercial_Analytics.pbix`.
+The editable PBIP source is available at `deliverables\powerbi\Albion_Commercial_Analytics_Project\Albion_Commercial_Analytics.pbip`; 34 JSON definitions parse and the model contains eight business tables, the nine intended business relationships, and twelve measures. The canonical PBIX is now verified at `deliverables\powerbi\Albion_Commercial_Analytics.pbix`: 22,685,598 bytes, modified 2026-10-22 17:43:13, SHA-256 `DCD0423CA00D2198159D1E6C04BBB3B6E9427C2BCB0539FF10FE56A64E87D0FF`. Its `PK` signature and internal report entries confirm a real PBIX archive, not a renamed PBIP pointer. Power BI Desktop previously displayed all eight expected table row counts but also showed the generic incomplete/no-data warning; that warning remains unverified as fully resolved. The remaining action is to independently verify the saved PBIX pages in Desktop and investigate the incomplete/no-data warning.
 
 ## Provenance and limitations
 
@@ -27,7 +27,7 @@ The raw CSV is ingested by `run_pipeline.py` and the Python/SQL modules under `s
 | DuckDB | `database\albion_analytics.duckdb`, 314,322,944 bytes |
 | Excel | `deliverables\excel\Albion_Commercial_Analytics.xlsx`, 22,917 bytes; readable with 10 sheets |
 | PBIP | `deliverables\powerbi\Albion_Commercial_Analytics_Project\Albion_Commercial_Analytics.pbip`, present |
-| PBIX | `deliverables\powerbi\Albion_Commercial_Analytics.pbix`, **missing** |
+| PBIX | `deliverables\powerbi\Albion_Commercial_Analytics.pbix`, 22,685,598 bytes; SHA-256 recorded above |
 | Validation JSON | `data\04_reconciliation\final_validation_report.json`, present but stale/contradictory |
 | Refresh helper | `scripts\refresh_analytics.ps1`, syntax-valid; validation-only execution fails honestly because the stale JSON lacks current controls |
 
@@ -63,7 +63,7 @@ These values are calculated across separate facts and must not be double-counted
 
 The source project is at `deliverables\powerbi\Albion_Commercial_Analytics_Project`. Static checks found valid report JSON, eight business tables, twelve measures, and the nine intended single-direction dimension-to-fact relationships; Desktop-generated local date tables/relationships may also be present. Power Query expressions point to the local `deliverables\powerbi\data_model_exports` folder and the repaired fact-date conversion handles timestamp text safely. The current filesystem check found no matching PBIX in the canonical deliverables folder, Desktop, or project tree, so the saved-report claim is **NOT VERIFIED**.
 
-The five planned report pages are Executive Overview, Sales Performance, Product & Customer Intelligence, Returns & Reconciliation, and Inventory Scenario Analysis. The project remains machine-path dependent. Desktop previously showed the eight expected row counts, but the generic “Some of the tables have incomplete or no data” banner was also observed, so a fully successful refresh is **not** claimed. The PBIX has not been verified on disk.
+The five planned report pages are Executive Overview, Sales Performance, Product & Customer Intelligence, Returns & Reconciliation, and Inventory Scenario Analysis. The project remains machine-path dependent. Desktop previously showed the eight expected row counts, but the generic “Some of the tables have incomplete or no data” banner was also observed, so a fully successful refresh is **not** claimed. The PBIX is verified on disk; its five-page archive contains 5/4/4/4/4 visual files.
 
 ### Visual-definition update
 
@@ -74,13 +74,13 @@ The four non-executive page folders originally contained only `page.json` and no
 - Returns & Reconciliation: returns-magnitude card, return-rate card, monthly returns line chart, audit-waterfall table.
 - Inventory Scenario Analysis: simulated working-capital card, scenario annual-cost chart, safety-stock chart, reorder-point chart.
 
-The new visuals use only verified model fields and existing measures. Desktop rendering and filter interaction after this source edit remain **NOT VERIFIED**; the canonical PBIX is still missing. The earlier incomplete/no-data warning remains unresolved.
+The new visuals use only verified model fields and existing measures. Desktop rendering and filter interaction after this source edit remain **NOT VERIFIED**; the canonical PBIX archive is now present; Desktop rendering remains unverified. The earlier incomplete/no-data warning remains unresolved.
 
 ### Final visual schema repair
 
 Inspection against the valid Executive Overview structure found one confirmed defect in the 16 newly added visuals: `drillFilterOtherVisuals` had been nested inside `visual.query` instead of being a sibling of `query` under `visual`. The active project was backed up at `deliverables\powerbi\Albion_Commercial_Analytics_Project_backup_before_visual_schema_repair`, and all 16 affected definitions were corrected in place. A subsequent check found 21 visuals total, zero JSON/schema-structure errors, complete layouts, and zero unresolved entity/column/measure references against the exported schemas and TMDL measures.
 
-Power BI Desktop was not installed at the inspected standard paths and no `PBIDesktop` process was running, so Desktop rendering, refresh, and PBIX save remain unverified.
+No `PBIDesktop` process was running during the filesystem closeout, so Desktop rendering, refresh, and warning resolution remain unverified even though the PBIX is now saved.
 
 The user reported seeing all five dashboards in Desktop, but that report could not be independently observed from the available tools. The previous incomplete/no-data warning therefore remains unresolved from an evidence standpoint.
 
@@ -98,8 +98,7 @@ Use the existing `.venv` and documented dependencies. Run focused tests with `py
 
 ## Known issues and next priorities
 
-1. Save and verify the canonical PBIX in `deliverables\powerbi\Albion_Commercial_Analytics.pbix`.
-2. Investigate the Desktop incomplete/no-data warning despite observed row counts.
+1. Independently verify the saved PBIX pages and investigate the Desktop incomplete/no-data warning.
 3. Regenerate `final_validation_report.json` through the normal pipeline rather than editing it manually.
 4. Remove or archive the untracked duplicate `Albion_Commercial_Analytics1` PBIP created during Desktop work only after confirming it is not needed.
 5. Replace remaining stale fixture wording in older status/tutorial documents during a separate documentation pass.
