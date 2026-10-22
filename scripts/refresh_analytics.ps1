@@ -52,6 +52,9 @@ $ReportText = Get-Content -LiteralPath $Validation -Raw
 if ($ReportText -notmatch '20112163\.17' -or $ReportText -notmatch '726611\.45') {
     Fail 'Expected merchandise and returns control totals were not found in the validation report.'
 }
+if ($ReportText -notmatch '"source_type"\s*:\s*"genuine_uci"' -or $ReportText -match '"fixture_mode"\s*:\s*true') {
+    Fail 'Validation report is not marked as genuine UCI data with fixture_mode=false.'
+}
 
 Write-Host 'PASS: source, Python environment, eight Power BI exports, and reconciliation report are present.'
 Write-Host 'Control totals found: merchandise £20,112,163.17; returns/cancellations £726,611.45.'

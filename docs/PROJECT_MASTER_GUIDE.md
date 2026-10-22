@@ -166,9 +166,15 @@ The pipeline entry point is `run_pipeline.py`; it stops on a failed milestone an
 
 ## 12. Quality assurance
 
-The current focused pytest run passed 31 tests. The eight export row counts are 761, 5,131, 5,943, 1,037,091, 18,290, 11,990, 9 and 14,199 respectively. Dimension keys are unique, simulation product keys are covered, and blank customer IDs are retained as anonymous activity.
+The current focused pytest run passed 31 tests. The eight export row counts are 761, 5,131, 5,943, 1,037,091, 18,290, 11,990, 9 and 14,199 respectively. Dimension keys are unique, simulation product keys are covered, and blank customer IDs are retained as anonymous activity. The fixture/full acquisition tests write the shared provenance manifest while they run; after executing pytest, restore the genuine manifest and report with:
 
-The validation JSON remains stale relative to the current genuine outputs and should be regenerated through the normal pipeline rather than hand-edited. Desktop rendering and the earlier incomplete-data warning require direct Desktop observation.
+```powershell
+$env:PYTHONPATH = "src"
+\.venv\Scripts\python.exe -m ingestion.acquire_data --mode full
+\.venv\Scripts\python.exe -m reporting.final_validation_report
+```
+
+The validation JSON now records the genuine CSV, current export row counts, current financial controls and PBIP/PBIX presence. The pipeline invokes the same generator after reporting documentation; it must not be hand-edited. Desktop rendering and the earlier incomplete-data warning require direct Desktop observation.
 
 ## 13. GitHub workflow
 

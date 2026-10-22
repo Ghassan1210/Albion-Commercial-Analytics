@@ -90,8 +90,8 @@ Average Order Value GBP := DIVIDE([Positive Merchandise Sales GBP], DISTINCTCOUN
 Sales LY := CALCULATE([Positive Merchandise Sales GBP], SAMEPERIODLASTYEAR(dim_date[date]))
 YoY Sales % := DIVIDE([Positive Merchandise Sales GBP] - [Sales LY], [Sales LY], 0)
 
-// Semi-additive inventory working capital (last date in context)
-Sim Working Capital Last := LASTDATE(fact_inventory[sim_date])  // placeholder; see guide
+// Simulated scenario working capital. The export is scenario x SKU and has no date.
+Sim Working Capital GBP := SUM(sim_inventory_sku_scenarios[sim_working_capital_gbp])
 
 // Relationships (single direction, active):
 // dim_date[date] 1:* fact_merchandise_sales[invoice_date]
@@ -146,7 +146,7 @@ def write_guide() -> None:
 |---|---|---|
 | dim_date | 1 row per date (2009-12-01 to 2011-12-31) | mart_empirical.dim_date |
 | dim_product | 1 row per normalized stock_code | mart_empirical.dim_product |
-| dim_customer | 1 row per customer_id (+ UNIDENTIFIED guest) | mart_empirical.dim_customer |
+| dim_customer | 1 row per customer_id; blank fact IDs remain anonymous | mart_empirical.dim_customer |
 | fact_merchandise_sales | 1 operational row per raw_row_id (cat 05, not cross-sheet repeat) | mart_empirical.fact_merchandise_sales |
 | fact_returns_and_cancellations | 1 operational row per raw_row_id (cat 04, not cross-sheet repeat) | mart_empirical.fact_returns_and_cancellations |
 | fact_non_merch_adjustments | 1 operational row per raw_row_id (cats 01-03, not cross-sheet repeat) | mart_empirical.fact_non_merch_and_adjustments |
@@ -166,7 +166,7 @@ def write_guide() -> None:
 - CALCULATE: modifies filter context (e.g., identified vs anonymous revenue).
 - DIVIDE: safe weighted ratios (return rate, AOV, shares).
 - Time Intelligence: SAMEPERIODLASTYEAR (requires dim_date marked as date table).
-- Semi-additive inventory logic: working capital is a stock measure — use LASTDATE/non-additive aggregation across time.
+- Simulation working capital: `sim_inventory_sku_scenarios` is scenario x SKU with no date; aggregate only within an explicitly selected scenario and do not treat it as historical time-series data.
 
 ## Dashboard Layout Guidance
 1. Executive Dashboard: KPI cards (sales, returns magnitude, net value, return rate %), monthly trend line chart.
@@ -181,7 +181,7 @@ def write_guide() -> None:
 
 ## Honest Verification
 Power BI CSV exports were validated against DuckDB totals (row counts and value totals above).
-No .pbix file was fabricated and Power BI Desktop was not executed; the .pbix must be assembled manually in Power BI Desktop using these CSVs and the DAX library.
+The editable PBIP and any saved PBIX are Desktop artifacts. Desktop rendering and refresh must be verified in Power BI Desktop; this generator does not fabricate or rename PBIX files.
 """,
         encoding="utf-8",
     )

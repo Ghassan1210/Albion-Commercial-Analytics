@@ -97,6 +97,10 @@ def main() -> int:
     if rc != 0:
         print("Milestone D (documentation builder) failed.")
         return rc
+    rc = run_module("reporting.final_validation_report")
+    if rc != 0:
+        print("Milestone D (final validation report) failed.")
+        return rc
 
     # Milestone E: pytest verification
     if not args.skip_tests:
