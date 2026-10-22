@@ -97,3 +97,16 @@ python -m venv .venv && .venv\Scripts\activate
 pip install -r requirements.txt
 python run_pipeline.py
 pytest tests/ -v
+
+## Power BI delivery
+
+The editable report source is `deliverables/powerbi/Albion_Commercial_Analytics_Project/`.
+Open its `.pbip` file in Power BI Desktop, refresh the model, and save a local `.pbix` only when Desktop validation succeeds. The PBIP Power Query definitions currently reference the existing local export folder `deliverables/powerbi/data_model_exports/`; contributors must preserve that folder layout or update the queries in Desktop.
+
+The model uses a star schema with date, product, and customer dimensions and separate historical sales, returns/cancellations, and non-merchandise facts. Inventory working-capital outputs are clearly labelled simulated scenarios; they are not historical company inventory or live business results.
+
+For a controlled refresh, run `powershell -ExecutionPolicy Bypass -File scripts/refresh_analytics.ps1` for validation only. Add `-ExecutePipeline` only when deliberately running the documented full pipeline. The helper stops on pipeline failure, checks the eight Power BI exports and reconciliation report, and then instructs the user to refresh Power BI Desktop.
+
+## Data attribution and limitations
+
+The source is Chen, D. (2012), *Online Retail II*, UCI Machine Learning Repository, DOI `10.24432/C5CG6D`, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). It covers historical transactions from December 2009 through December 2011. Albion Commercial Analytics is a fictional analytical wrapper and is not the owner of the source transactions or a live business feed.
