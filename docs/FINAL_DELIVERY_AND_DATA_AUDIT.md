@@ -1,6 +1,6 @@
 # Albion Commercial Analytics — Final Delivery and Data Audit
 
-**Audit date:** 2026-10-22
+**Audit date:** 2026-10-22 (final integration gate)
 **Project root:** `C:\Important GHN files\GHN12`
 
 ## Executive summary
@@ -61,7 +61,7 @@ These values are calculated across separate facts and must not be double-counted
 
 ## Power BI status
 
-The source project is at `deliverables\powerbi\Albion_Commercial_Analytics_Project`. Static checks found 34 syntactically valid JSON files, eight business tables, twelve measures, and the nine intended single-direction dimension-to-fact relationships; Desktop-generated local date tables/relationships may also be present. Power Query expressions point to the local `deliverables\powerbi\data_model_exports` folder and the repaired fact-date conversion handles timestamp text safely.
+The source project is at `deliverables\powerbi\Albion_Commercial_Analytics_Project`. Static checks found valid report JSON, eight business tables, twelve measures, and the nine intended single-direction dimension-to-fact relationships; Desktop-generated local date tables/relationships may also be present. Power Query expressions point to the local `deliverables\powerbi\data_model_exports` folder and the repaired fact-date conversion handles timestamp text safely. The current filesystem check found no Power BI Desktop process and no PBIX on either the Desktop or canonical deliverables path, so rendering after the visual build is **NOT VERIFIED**.
 
 The five planned report pages are Executive Overview, Sales Performance, Product & Customer Intelligence, Returns & Reconciliation, and Inventory Scenario Analysis. The project remains machine-path dependent. Desktop previously showed the eight expected row counts, but the generic “Some of the tables have incomplete or no data” banner was also observed, so a fully successful refresh is **not** claimed. The PBIX has not been verified on disk.
 
@@ -74,7 +74,14 @@ The four non-executive page folders originally contained only `page.json` and no
 - Returns & Reconciliation: returns-magnitude card, return-rate card, monthly returns line chart, audit-waterfall table.
 - Inventory Scenario Analysis: simulated working-capital card, scenario annual-cost chart, safety-stock chart, reorder-point chart.
 
-The new visuals use only verified model fields and existing measures. Desktop rendering and filter interaction after this source edit remain **NOT VERIFIED**; the canonical PBIX is still missing.
+The new visuals use only verified model fields and existing measures. Desktop rendering and filter interaction after this source edit remain **NOT VERIFIED**; the canonical PBIX is still missing. The earlier incomplete/no-data warning remains unresolved.
+
+## Final integration-gate evidence
+
+- Local `main` and `origin/main` both resolve to `97fb38d3e287f064861415273ff763c01581d6e0`.
+- The public GitHub repository exposes the project root and latest commit; no remote publishing gap was observed.
+- The working tree retains unrelated untracked local/generated items; they were not staged or pushed.
+- The visual-build backup and existing Power BI repair project folders remain present. Protected data, database, workbook, pipeline, tests, and validation JSON were not modified.
 
 ## Reproducibility and refresh
 
