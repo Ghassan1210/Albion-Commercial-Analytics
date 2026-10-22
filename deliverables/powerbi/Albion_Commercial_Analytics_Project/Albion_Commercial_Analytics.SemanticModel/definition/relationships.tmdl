@@ -1,0 +1,66 @@
+relationship Date_to_MerchandiseSales
+	fromColumn: fact_merchandise_sales.invoice_date
+	toColumn: dim_date.date
+
+relationship Date_to_Returns
+	fromColumn: fact_returns_and_cancellations.invoice_date
+	toColumn: dim_date.date
+
+relationship Product_to_MerchandiseSales
+	fromColumn: fact_merchandise_sales.stock_code
+	toColumn: dim_product.stock_code
+
+relationship Product_to_Returns
+	fromColumn: fact_returns_and_cancellations.stock_code
+	toColumn: dim_product.stock_code
+
+relationship Product_to_NonMerch
+	fromColumn: fact_non_merch_adjustments.stock_code
+	toColumn: dim_product.stock_code
+
+relationship Customer_to_MerchandiseSales
+	fromColumn: fact_merchandise_sales.customer_id
+	toColumn: dim_customer.customer_id
+
+relationship Customer_to_Returns
+	fromColumn: fact_returns_and_cancellations.customer_id
+	toColumn: dim_customer.customer_id
+
+relationship Customer_to_NonMerch
+	fromColumn: fact_non_merch_adjustments.customer_id
+	toColumn: dim_customer.customer_id
+
+relationship Product_to_InventoryScenarios
+	fromColumn: sim_inventory_sku_scenarios.sim_stock_code
+	toColumn: dim_product.stock_code
+
+relationship d5a4cf9d-f518-47fc-90ef-503abd947f26
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_date.date
+	toColumn: LocalDateTable_7f2406c5-b907-41cd-89f6-c25aba287960.Date
+
+relationship 3187ac94-9f6c-4066-a3bb-763df62bcb6b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_product.first_sale_date
+	toColumn: LocalDateTable_eedba5a6-218c-4e38-b37f-d02e653e9a70.Date
+
+relationship 58787f66-e599-42ed-b36d-6eeca73d882c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_product.last_sale_date
+	toColumn: LocalDateTable_69c2751e-df6f-4760-bd75-0dcedf5901c9.Date
+
+relationship 4ea89959-054e-4c7c-9b3c-c789ed5687c5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_customer.first_order_date
+	toColumn: LocalDateTable_55e4c5ed-0e93-40e5-a8a3-0f6210fd691a.Date
+
+relationship 66bed493-8f4e-434d-b38d-4c61f2dac0fc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_customer.last_order_date
+	toColumn: LocalDateTable_5c6287ae-d633-4612-905b-5ce909673f39.Date
+
+relationship 6a5b7b14-9031-4d2b-ab96-5fdbd4f7e4b0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_non_merch_adjustments.invoice_date
+	toColumn: LocalDateTable_73cb8d01-29a7-46c1-b66d-2e4da49904e2.Date
+

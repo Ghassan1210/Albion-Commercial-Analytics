@@ -1,0 +1,110 @@
+table fact_merchandise_sales
+	lineageTag: f7501bfa-2792-418c-816d-a97d9b74e496
+
+	measure 'Positive Merchandise Sales GBP' = SUM(fact_merchandise_sales[raw_signed_value])
+		formatString: £#,##0.00
+		lineageTag: 9110104c-9061-4c2a-abf2-d4eab5c74b74
+
+	measure 'Identified Customer Revenue GBP' = CALCULATE([Positive Merchandise Sales GBP], fact_merchandise_sales[customer_id] <> "UNIDENTIFIED" && NOT ISBLANK(fact_merchandise_sales[customer_id]))
+		formatString: £#,##0.00
+		lineageTag: 0150a84e-8202-4d3d-929b-dfbec6cad3e1
+
+	measure 'Anonymous Guest Revenue GBP' = CALCULATE([Positive Merchandise Sales GBP], fact_merchandise_sales[customer_id] = "UNIDENTIFIED")
+		formatString: £#,##0.00
+		lineageTag: 41db416b-1e1c-4985-a2b7-089c25cf26b3
+
+	measure 'Average Order Value GBP' = DIVIDE([Positive Merchandise Sales GBP], DISTINCTCOUNT(fact_merchandise_sales[invoice_no]), 0)
+		formatString: £#,##0.00
+		lineageTag: 978aa39f-73da-4841-aa72-7bbf2b929b13
+
+	measure 'Sales LY' = CALCULATE([Positive Merchandise Sales GBP], SAMEPERIODLASTYEAR(dim_date[date]))
+		formatString: £#,##0.00
+		lineageTag: 55dd71b1-5171-4b16-a9c2-054f795a9a55
+
+	measure 'YoY Sales %' = DIVIDE([Positive Merchandise Sales GBP] - [Sales LY], [Sales LY], 0)
+		formatString: 0.00%
+		lineageTag: 8af75cff-b1d3-463c-857e-6df1ff828130
+
+	column raw_row_id
+		dataType: string
+		lineageTag: 319821cd-240a-4786-8311-05905de84285
+		sourceColumn: raw_row_id
+
+	column source_sheet
+		dataType: string
+		lineageTag: fb86685c-6076-4cb7-8df0-76d063dfbdc6
+		sourceColumn: source_sheet
+
+	column invoice_no
+		dataType: string
+		lineageTag: 04ab0920-c167-409a-90e6-810d808bbd2a
+		sourceColumn: invoice_no
+
+	column stock_code
+		dataType: string
+		lineageTag: 93c2b134-cfa4-47cb-80db-e06b3933c98a
+		sourceColumn: stock_code
+
+	column Description
+		dataType: string
+		lineageTag: 999be655-d6af-4c6c-a5d6-2cad79acaa4a
+		sourceColumn: Description
+
+	column quantity
+		dataType: double
+		lineageTag: 18f50a60-36d8-4c50-a576-7ffd35f1082a
+		sourceColumn: quantity
+
+	column invoice_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: fedca7f8-1318-4a42-af9c-7e2908bb2d4d
+		summarizeBy: none
+		sourceColumn: invoice_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price
+		dataType: double
+		lineageTag: 3e750fcf-dd7d-4189-92da-316847b86463
+		summarizeBy: sum
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column raw_signed_value
+		dataType: double
+		lineageTag: 710335e9-13e9-4e68-aae9-b71309c9d32f
+		summarizeBy: sum
+		sourceColumn: raw_signed_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column customer_id
+		dataType: string
+		lineageTag: 2ea7a86f-f7ac-47f0-82f1-8c3f804e7031
+		sourceColumn: customer_id
+
+	column country
+		dataType: string
+		lineageTag: 7c4f9e21-8b21-4aff-9053-38f55d809808
+		sourceColumn: country
+
+	partition fact_merchandise_sales = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents("C:\\Important GHN files\\GHN12\\deliverables\\powerbi\\data_model_exports\\fact_merchandise_sales.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Dates = Table.TransformColumns(Headers, {{"invoice_date", each if _ = null or Text.Trim(_) = "" then null else Date.FromText(Text.Start(Text.Trim(_), 10), "en-US"), type date}}),
+					Typed = Table.TransformColumnTypes(Dates, {{"raw_row_id", type text}, {"source_sheet", type text}, {"invoice_no", type text}, {"stock_code", type text}, {"Description", type text}, {"quantity", type number}, {"invoice_date", type date}, {"unit_price", type number}, {"raw_signed_value", type number}, {"customer_id", type text}, {"country", type text}})
+				in Typed
+
+	annotation PBI_ResultType = Table
+

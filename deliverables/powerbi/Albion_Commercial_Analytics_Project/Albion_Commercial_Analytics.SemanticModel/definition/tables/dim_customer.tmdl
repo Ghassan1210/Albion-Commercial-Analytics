@@ -1,0 +1,68 @@
+table dim_customer
+	lineageTag: 959bf931-af3b-47ee-bc2c-42b731eceb82
+
+	column customer_id
+		dataType: string
+		lineageTag: 6116fe57-6625-4ed8-9f1d-c32fd9e820bd
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column customer_status
+		dataType: string
+		lineageTag: 7c0608f0-797b-49dc-af4b-fd34b88a1812
+		summarizeBy: none
+		sourceColumn: customer_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column primary_country
+		dataType: string
+		lineageTag: 679097d3-3873-4ef4-953d-c66111e2c3ec
+		summarizeBy: none
+		sourceColumn: primary_country
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_order_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f1ad855c-4f76-4d0a-a534-5d9dc58cc90e
+		summarizeBy: none
+		sourceColumn: first_order_date
+
+		variation Variation
+			isDefault
+			relationship: 4ea89959-054e-4c7c-9b3c-c789ed5687c5
+			defaultHierarchy: LocalDateTable_55e4c5ed-0e93-40e5-a8a3-0f6210fd691a.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_order_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: ebf3a878-6d73-49d9-80ea-fdbdbb4d1179
+		summarizeBy: none
+		sourceColumn: last_order_date
+
+		variation Variation
+			isDefault
+			relationship: 66bed493-8f4e-434d-b38d-4c61f2dac0fc
+			defaultHierarchy: LocalDateTable_5c6287ae-d633-4612-905b-5ce909673f39.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customer = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents("C:\\Important GHN files\\GHN12\\deliverables\\powerbi\\data_model_exports\\dim_customer.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Headers, {{"customer_id", type text}, {"customer_status", type text}, {"primary_country", type text}, {"first_order_date", type date}, {"last_order_date", type date}})
+				in Typed
+
+	annotation PBI_ResultType = Table
+

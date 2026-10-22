@@ -1,0 +1,86 @@
+table dim_product
+	lineageTag: 0ac7abc1-8e9e-43e0-aa85-6bb7525affe9
+
+	column stock_code
+		dataType: string
+		lineageTag: 5f511ec0-4130-4815-af52-8af018a4e74a
+		summarizeBy: none
+		sourceColumn: stock_code
+
+	column canonical_description
+		dataType: string
+		lineageTag: f92ea37e-4558-4966-82d3-77cf1f1e34ee
+		summarizeBy: none
+		sourceColumn: canonical_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column distinct_description_count
+		dataType: int64
+		lineageTag: d52fdac7-d9a6-4507-b774-eaad7cff23eb
+		summarizeBy: sum
+		sourceColumn: distinct_description_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_merchandise
+		dataType: int64
+		lineageTag: ff802b16-e6ba-4b16-a505-dd808040510b
+		summarizeBy: sum
+		sourceColumn: is_merchandise
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_sale_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0f19ebbe-011f-49b9-b549-b86bf35c9fe5
+		summarizeBy: none
+		sourceColumn: first_sale_date
+
+		variation Variation
+			isDefault
+			relationship: 3187ac94-9f6c-4066-a3bb-763df62bcb6b
+			defaultHierarchy: LocalDateTable_eedba5a6-218c-4e38-b37f-d02e653e9a70.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_sale_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 18ae0084-e855-45ce-95c4-de398ae736b4
+		summarizeBy: none
+		sourceColumn: last_sale_date
+
+		variation Variation
+			isDefault
+			relationship: 58787f66-e599-42ed-b36d-6eeca73d882c
+			defaultHierarchy: LocalDateTable_69c2751e-df6f-4760-bd75-0dcedf5901c9.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column median_unit_price
+		dataType: double
+		lineageTag: 08481258-be35-485a-84fc-c05e99368bb2
+		summarizeBy: sum
+		sourceColumn: median_unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition dim_product = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents("C:\\Important GHN files\\GHN12\\deliverables\\powerbi\\data_model_exports\\dim_product.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Headers, {{"stock_code", type text}, {"canonical_description", type text}, {"distinct_description_count", Int64.Type}, {"is_merchandise", Int64.Type}, {"first_sale_date", type date}, {"last_sale_date", type date}, {"median_unit_price", type number}})
+				in Typed
+
+	annotation PBI_ResultType = Table
+

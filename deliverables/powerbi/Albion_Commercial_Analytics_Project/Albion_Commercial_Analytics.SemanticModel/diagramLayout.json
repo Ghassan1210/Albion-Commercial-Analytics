@@ -1,0 +1,118 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 530.18449717281635,
+            "y": 656.75496204765136
+          },
+          "nodeIndex": "dim_customer",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 2.2057651642328437
+          },
+          "nodeIndex": "dim_date",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 776.26722302397741,
+            "y": 355.84241053233291
+          },
+          "nodeIndex": "dim_product",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1296.9584297421984,
+            "y": 391.65517714257066
+          },
+          "nodeIndex": "fact_audit_waterfall",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 286.58489521559216,
+            "y": 303.62117046303331
+          },
+          "nodeIndex": "fact_merchandise_sales",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 846.24809887949914,
+            "y": 657.31035428514133
+          },
+          "nodeIndex": "fact_non_merch_adjustments",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 521.02911331258974,
+            "y": -50
+          },
+          "nodeIndex": "fact_returns_and_cancellations",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1062.9584297421982,
+            "y": 302.03134763415761
+          },
+          "nodeIndex": "sim_inventory_sku_scenarios",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

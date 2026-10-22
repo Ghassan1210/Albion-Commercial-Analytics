@@ -1,0 +1,10 @@
+[project]
+name = "albion-commercial-analytics"
+version = "1.0.0"
+description = "Albion Commercial Analytics - Commercial Performance, Customer Intelligence and Inventory Optimization Engine (UCI Online Retail II case study)"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "."]
+testpaths = ["tests"]
+addopts = "-q"

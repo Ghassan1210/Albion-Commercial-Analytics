@@ -1,0 +1,14 @@
+pandas
+numpy
+scipy
+duckdb
+pyarrow
+openpyxl
+XlsxWriter
+pyyaml
+matplotlib
+seaborn
+nbformat
+nbclient
+ipykernel
+pytest

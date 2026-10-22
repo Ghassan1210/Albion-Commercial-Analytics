@@ -1,0 +1,74 @@
+table dim_date
+	lineageTag: 744a5e7e-77d8-42df-9de6-bee935a1efd1
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 4d708101-bc1d-4eca-8a5d-51eba2b13e50
+		summarizeBy: none
+		sourceColumn: date
+
+		variation Variation
+			isDefault
+			relationship: d5a4cf9d-f518-47fc-90ef-503abd947f26
+			defaultHierarchy: LocalDateTable_7f2406c5-b907-41cd-89f6-c25aba287960.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column year_month
+		dataType: string
+		lineageTag: fed24550-66f1-4e28-8626-a48a3c714348
+		summarizeBy: none
+		sourceColumn: year_month
+
+	column year
+		dataType: int64
+		lineageTag: 8d5b56bb-a6ff-4739-b8aa-f543328e7b17
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		lineageTag: 564b35a7-2725-4498-a0a1-4a90bd93e7a6
+		summarizeBy: sum
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		lineageTag: 6db98c83-838f-4a78-8c96-e778961396fd
+		summarizeBy: sum
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_name
+		dataType: string
+		lineageTag: 750f23cd-c3e4-447f-ae32-0559c4b5efc5
+		summarizeBy: none
+		sourceColumn: day_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_weekend
+		dataType: int64
+		lineageTag: 9db31741-1cf2-4e83-ab53-8a72ae97e27e
+		summarizeBy: sum
+		sourceColumn: is_weekend
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents("C:\\Important GHN files\\GHN12\\deliverables\\powerbi\\data_model_exports\\dim_date.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Headers, {{"date", type date}, {"year_month", type text}, {"year", Int64.Type}, {"quarter", Int64.Type}, {"month", Int64.Type}, {"day_name", type text}, {"is_weekend", Int64.Type}})
+				in Typed
+
+	annotation PBI_ResultType = Table
+

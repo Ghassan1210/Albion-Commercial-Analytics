@@ -1,0 +1,49 @@
+table fact_audit_waterfall
+	lineageTag: 9cc165d0-37b0-4df8-a09a-08f5a2c37d9d
+
+	column reporting_basis
+		dataType: string
+		lineageTag: 6dc41dc4-bce4-4da5-9298-063f27d87333
+		sourceColumn: reporting_basis
+
+	column primary_audit_category
+		dataType: string
+		lineageTag: c249eb7c-144e-4a02-bcac-d0618d53215a
+		sourceColumn: primary_audit_category
+
+	column total_rows
+		dataType: int64
+		lineageTag: 4d818fe9-4671-424d-a411-03460157f8b4
+		sourceColumn: total_rows
+
+	column calculable_rows
+		dataType: int64
+		lineageTag: 7d4f8c7c-b580-4c27-9c26-b80a9372cea3
+		sourceColumn: calculable_rows
+
+	column uncalculable_rows
+		dataType: int64
+		lineageTag: 5927de23-66cd-416f-803e-10cae60f708c
+		sourceColumn: uncalculable_rows
+
+	column calculable_signed_gbp
+		dataType: double
+		lineageTag: b3830ce9-5fcb-4851-b760-1ceebfbb1656
+		summarizeBy: sum
+		sourceColumn: calculable_signed_gbp
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_audit_waterfall = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents("C:\\Important GHN files\\GHN12\\deliverables\\powerbi\\data_model_exports\\fact_audit_waterfall.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Headers, {{"reporting_basis", type text}, {"primary_audit_category", type text}, {"total_rows", Int64.Type}, {"calculable_rows", Int64.Type}, {"uncalculable_rows", Int64.Type}, {"calculable_signed_gbp", type number}})
+				in Typed
+
+	annotation PBI_ResultType = Table
+

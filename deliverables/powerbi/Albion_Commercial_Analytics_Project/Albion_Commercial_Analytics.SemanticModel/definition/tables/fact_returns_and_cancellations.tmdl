@@ -1,0 +1,121 @@
+table fact_returns_and_cancellations
+	lineageTag: 3490b427-a99c-4996-8894-b8d79650d8bb
+
+	measure 'Cat04 Signed Returns GBP' = SUM(fact_returns_and_cancellations[raw_signed_value])
+		formatString: £#,##0.00
+		lineageTag: 44b97646-a8b6-464c-8d7f-dc62a60519b9
+
+	measure 'Recorded Returns Magnitude GBP' = SUM(fact_returns_and_cancellations[abs_return_value])
+		formatString: £#,##0.00
+		lineageTag: 5e02e5c1-4b4c-4c95-99f9-1de4b9af4425
+
+	measure 'Net Recorded Merchandise Value GBP' = [Positive Merchandise Sales GBP] + [Cat04 Signed Returns GBP]
+		formatString: £#,##0.00
+		lineageTag: 546b04eb-9fd3-45b2-ba38-efe3a07e6e93
+
+	measure 'Merchandise Return Rate %' = DIVIDE([Recorded Returns Magnitude GBP], [Positive Merchandise Sales GBP], 0)
+		formatString: 0.00%
+		lineageTag: 8baee8d0-f0e1-486d-b90c-3271f9cc3e82
+
+	measure 'Net Cancellation Impact %' = DIVIDE(-[Cat04 Signed Returns GBP], [Positive Merchandise Sales GBP], 0)
+		formatString: 0.00%
+		lineageTag: 2a33916c-2fef-40c6-832f-056affc0f625
+
+	column raw_row_id
+		dataType: string
+		lineageTag: 46e0d725-5908-4cd8-981d-ea72b6500d7a
+		sourceColumn: raw_row_id
+
+	column source_sheet
+		dataType: string
+		lineageTag: 061676f6-7248-474a-9e9c-e79569f8820e
+		sourceColumn: source_sheet
+
+	column invoice_no
+		dataType: string
+		lineageTag: ed77ead1-693a-4702-b825-21e7f5c12d3d
+		sourceColumn: invoice_no
+
+	column stock_code
+		dataType: string
+		lineageTag: a6d7f45d-5efe-43e8-99a0-0ecc5875dd79
+		sourceColumn: stock_code
+
+	column Description
+		dataType: string
+		lineageTag: 7c665a50-3259-4f6a-a933-d209f1691632
+		sourceColumn: Description
+
+	column quantity
+		dataType: double
+		lineageTag: fe0cc9a3-8f44-41f8-9560-220da66da863
+		sourceColumn: quantity
+
+	column invoice_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 914db19b-e3f2-4ad8-be37-ac34fa62dcd7
+		summarizeBy: none
+		sourceColumn: invoice_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price
+		dataType: double
+		lineageTag: b90346ac-e46b-4e95-81ec-7d0c73014616
+		summarizeBy: sum
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column raw_signed_value
+		dataType: double
+		lineageTag: c6abc04a-9fdf-45c7-b49b-931fc2a90da6
+		summarizeBy: sum
+		sourceColumn: raw_signed_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column return_sign_subtype
+		dataType: string
+		lineageTag: c2f81430-b8ba-4f69-98b1-b0bce92931da
+		sourceColumn: return_sign_subtype
+
+	column abs_return_value
+		dataType: double
+		lineageTag: ec3cdb7a-df7e-415f-bd2a-c44d5ca6ff2d
+		summarizeBy: sum
+		sourceColumn: abs_return_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column customer_id
+		dataType: string
+		lineageTag: 52cb0445-b4cc-4671-9680-8e1a0da1d966
+		sourceColumn: customer_id
+
+	column country
+		dataType: string
+		lineageTag: 57e2c782-13d8-4e9c-99cb-c094388ed422
+		sourceColumn: country
+
+	partition fact_returns_and_cancellations = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents("C:\\Important GHN files\\GHN12\\deliverables\\powerbi\\data_model_exports\\fact_returns_and_cancellations.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Dates = Table.TransformColumns(Headers, {{"invoice_date", each if _ = null or Text.Trim(_) = "" then null else Date.FromText(Text.Start(Text.Trim(_), 10), "en-US"), type date}}),
+					Typed = Table.TransformColumnTypes(Dates, {{"raw_row_id", type text}, {"source_sheet", type text}, {"invoice_no", type text}, {"stock_code", type text}, {"Description", type text}, {"quantity", type number}, {"invoice_date", type date}, {"unit_price", type number}, {"raw_signed_value", type number}, {"return_sign_subtype", type text}, {"abs_return_value", type number}, {"customer_id", type text}, {"country", type text}})
+				in Typed
+
+	annotation PBI_ResultType = Table
+

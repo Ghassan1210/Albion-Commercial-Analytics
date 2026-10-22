@@ -1,0 +1,131 @@
+table fact_non_merch_adjustments
+	lineageTag: db93579f-035c-4a52-b935-6b740c8cf870
+
+	column raw_row_id
+		dataType: string
+		lineageTag: 444949f8-0629-4c95-b354-ae515fb2968f
+		summarizeBy: none
+		sourceColumn: raw_row_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column source_sheet
+		dataType: string
+		lineageTag: 4fad3141-183c-40d7-8bde-735d6c4fc2e2
+		summarizeBy: none
+		sourceColumn: source_sheet
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_no
+		dataType: string
+		lineageTag: c55d9b5e-12e9-43a2-96ee-64bc755db439
+		summarizeBy: none
+		sourceColumn: invoice_no
+
+		annotation SummarizationSetBy = Automatic
+
+	column stock_code
+		dataType: string
+		lineageTag: e6a97894-e0d1-40d4-ac24-91bcd44aed57
+		summarizeBy: none
+		sourceColumn: stock_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		lineageTag: c46d172f-b0e5-48ca-8884-147bf9264e4a
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: double
+		lineageTag: 710d5b73-3f6f-44d2-bc5b-38d7c11ae708
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column invoice_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 516669fa-59e7-42e8-b4c6-c5a67c0089b3
+		summarizeBy: none
+		sourceColumn: invoice_date
+
+		variation Variation
+			isDefault
+			relationship: 6a5b7b14-9031-4d2b-ab96-5fdbd4f7e4b0
+			defaultHierarchy: LocalDateTable_73cb8d01-29a7-46c1-b66d-2e4da49904e2.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price
+		dataType: double
+		lineageTag: 717fe343-c370-4d30-8d40-deb6f0ebe389
+		summarizeBy: sum
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column raw_signed_value
+		dataType: double
+		lineageTag: e2d65601-bdf2-46fb-8ff1-c2a8ad287b2a
+		summarizeBy: sum
+		sourceColumn: raw_signed_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column primary_audit_category
+		dataType: string
+		lineageTag: ad0ae350-3206-49fc-ba14-c999b1380e70
+		summarizeBy: none
+		sourceColumn: primary_audit_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column return_sign_subtype
+		dataType: string
+		lineageTag: 6ad2c14a-9a77-4ae8-bdd1-8f25bba5fac8
+		summarizeBy: none
+		sourceColumn: return_sign_subtype
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: 4a34bdc5-bd08-41a6-8d2e-0e1b898f8eaf
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: a5c45d22-45e3-4a84-940a-31f04e7aa140
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_non_merch_adjustments = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents("C:\\Important GHN files\\GHN12\\deliverables\\powerbi\\data_model_exports\\fact_non_merch_adjustments.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Dates = Table.TransformColumns(Headers, {{"invoice_date", each if _ = null or Text.Trim(_) = "" then null else Date.FromText(Text.Start(Text.Trim(_), 10), "en-US"), type date}}),
+					Typed = Table.TransformColumnTypes(Dates, {{"raw_row_id", type text}, {"source_sheet", type text}, {"invoice_no", type text}, {"stock_code", type text}, {"Description", type text}, {"quantity", type number}, {"invoice_date", type date}, {"unit_price", type number}, {"raw_signed_value", type number}, {"primary_audit_category", type text}, {"return_sign_subtype", type text}, {"customer_id", type text}, {"country", type text}})
+				in Typed
+
+	annotation PBI_ResultType = Table
+

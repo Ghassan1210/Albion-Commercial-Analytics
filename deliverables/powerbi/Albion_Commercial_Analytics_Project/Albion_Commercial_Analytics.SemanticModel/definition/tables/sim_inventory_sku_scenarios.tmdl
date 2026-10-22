@@ -1,0 +1,193 @@
+table sim_inventory_sku_scenarios
+	lineageTag: 3c81137a-c733-4b23-8c4e-ab19a163a266
+
+	measure 'Sim Working Capital GBP' = SUM(sim_inventory_sku_scenarios[sim_working_capital_gbp])
+		formatString: £#,##0.00
+		lineageTag: 7bf79f65-12fb-465d-b22f-c3567a1bc990
+
+	column data_provenance
+		dataType: string
+		lineageTag: 57dddd0b-95ff-461a-b696-970d3b885f95
+		sourceColumn: data_provenance
+
+	column scenario
+		dataType: string
+		lineageTag: 47af4686-e83c-42d6-9b44-36cf4d110ad3
+		sourceColumn: scenario
+
+	column sim_stock_code
+		dataType: string
+		lineageTag: 1c657202-a8dc-45cc-9ee3-8a279cf082f9
+		sourceColumn: sim_stock_code
+
+	column sim_abc_class
+		dataType: string
+		lineageTag: 848078b7-08d0-4538-94a2-96607cce0003
+		sourceColumn: sim_abc_class
+
+	column sim_xyz_class
+		dataType: string
+		lineageTag: 6a92b0d5-0c56-433c-9600-250c76edec5b
+		sourceColumn: sim_xyz_class
+
+	column sim_sb_regime
+		dataType: string
+		lineageTag: 49b15cf1-bb6e-4108-ba1e-a356e7f65663
+		sourceColumn: sim_sb_regime
+
+	column sim_normal_approx_valid
+		dataType: boolean
+		lineageTag: 249d379a-e440-4d3c-8795-3a733c6401ea
+		sourceColumn: sim_normal_approx_valid
+
+	column sim_weekly_mean_units
+		dataType: double
+		lineageTag: fd096915-701b-4737-a4ed-55de5694e4d8
+		sourceColumn: sim_weekly_mean_units
+
+	column sim_weekly_std_units
+		dataType: double
+		lineageTag: 6d0e662b-9aae-474f-8327-08acf56c7b0c
+		sourceColumn: sim_weekly_std_units
+
+	column sim_cv
+		dataType: double
+		lineageTag: 0945c654-520b-4585-b48f-377455cc41ac
+		sourceColumn: sim_cv
+
+	column sim_adi
+		dataType: double
+		lineageTag: 75a524d1-2053-486e-9ce2-38e46ea764a7
+		sourceColumn: sim_adi
+
+	column sim_annual_demand_units
+		dataType: double
+		lineageTag: 8429923b-fa5e-435d-b97e-096ed3647e30
+		sourceColumn: sim_annual_demand_units
+
+	column sim_lead_time_mean_days
+		dataType: double
+		lineageTag: 7e04d276-79e4-4b9c-8a4d-f991ea46c0ae
+		sourceColumn: sim_lead_time_mean_days
+
+	column sim_lead_time_std_days
+		dataType: double
+		lineageTag: fb8fa17b-9c1f-484f-a7bb-f377d56a9819
+		sourceColumn: sim_lead_time_std_days
+
+	column sim_lead_time_mean_weeks
+		dataType: double
+		lineageTag: 7dbdd5f9-29ae-4435-9fba-a6a8b8906a94
+		sourceColumn: sim_lead_time_mean_weeks
+
+	column sim_lead_time_std_weeks
+		dataType: double
+		lineageTag: 8f89623b-00fa-4c2e-834f-5499f4384c77
+		sourceColumn: sim_lead_time_std_weeks
+
+	column sim_service_level
+		dataType: double
+		lineageTag: 60b963e6-c552-44e4-89d8-49605ce31efe
+		sourceColumn: sim_service_level
+
+	column sim_z_score
+		dataType: double
+		lineageTag: c31f2f7e-dbad-4640-b09c-9cb76defdaca
+		sourceColumn: sim_z_score
+
+	column sim_unit_cost_ratio
+		dataType: double
+		lineageTag: 82465646-6acf-44ee-b465-60a4320c2ce7
+		sourceColumn: sim_unit_cost_ratio
+
+	column sim_unit_cost_gbp
+		dataType: double
+		lineageTag: ff01645f-ffb8-4ab1-90f2-67cc2611c428
+		sourceColumn: sim_unit_cost_gbp
+
+	column sim_safety_stock_units
+		dataType: double
+		lineageTag: 2b6cf5dc-1eff-43e5-8dc8-f8fc5bf60c23
+		sourceColumn: sim_safety_stock_units
+
+	column sim_safety_stock_normal_approx_units
+		dataType: double
+		lineageTag: e6173831-39bb-434f-aa1c-712c8ab4e9d9
+		sourceColumn: sim_safety_stock_normal_approx_units
+
+	column sim_empirical_lt_demand_buffer_units
+		dataType: double
+		lineageTag: 73cbff87-357e-4132-a1a1-90770731374d
+		sourceColumn: sim_empirical_lt_demand_buffer_units
+
+	column sim_reorder_point_units
+		dataType: double
+		lineageTag: 7008e4fc-f999-4623-8b9e-bd2481ea66a1
+		sourceColumn: sim_reorder_point_units
+
+	column sim_eoq_units
+		dataType: double
+		lineageTag: bb889f96-2c21-4157-b0fb-dda733a948ec
+		sourceColumn: sim_eoq_units
+
+	column sim_cycle_stock_units
+		dataType: double
+		lineageTag: beb3d8bd-a22f-4586-aae5-59b2ff5c77fe
+		sourceColumn: sim_cycle_stock_units
+
+	column sim_working_capital_gbp
+		dataType: double
+		lineageTag: e50b432d-e6ae-48e3-b0ed-bddf4660fbb4
+		summarizeBy: sum
+		sourceColumn: sim_working_capital_gbp
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sim_annual_holding_cost_gbp
+		dataType: double
+		lineageTag: e6d5bcb1-f2e1-405c-bfd5-0e3f3de6b383
+		summarizeBy: sum
+		sourceColumn: sim_annual_holding_cost_gbp
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sim_annual_ordering_cost_gbp
+		dataType: double
+		lineageTag: 85b35f3d-8dcc-4b52-9345-42472ad24eca
+		summarizeBy: sum
+		sourceColumn: sim_annual_ordering_cost_gbp
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sim_annual_inventory_cost_gbp
+		dataType: double
+		lineageTag: b89bcdc0-ba58-4d1a-bde7-15f986012f9a
+		summarizeBy: sum
+		sourceColumn: sim_annual_inventory_cost_gbp
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sim_carrying_cost_rate
+		dataType: double
+		lineageTag: b9d2ebca-c01f-4d6e-ad6d-9f8544871037
+		sourceColumn: sim_carrying_cost_rate
+
+	partition sim_inventory_sku_scenarios = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents("C:\\Important GHN files\\GHN12\\deliverables\\powerbi\\data_model_exports\\sim_inventory_sku_scenarios.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Headers, {{"data_provenance", type text}, {"scenario", type text}, {"sim_stock_code", type text}, {"sim_abc_class", type text}, {"sim_xyz_class", type text}, {"sim_sb_regime", type text}, {"sim_normal_approx_valid", type logical}, {"sim_weekly_mean_units", type number}, {"sim_weekly_std_units", type number}, {"sim_cv", type number}, {"sim_adi", type number}, {"sim_annual_demand_units", type number}, {"sim_lead_time_mean_days", type number}, {"sim_lead_time_std_days", type number}, {"sim_lead_time_mean_weeks", type number}, {"sim_lead_time_std_weeks", type number}, {"sim_service_level", type number}, {"sim_z_score", type number}, {"sim_unit_cost_ratio", type number}, {"sim_unit_cost_gbp", type number}, {"sim_safety_stock_units", type number}, {"sim_safety_stock_normal_approx_units", type number}, {"sim_empirical_lt_demand_buffer_units", type number}, {"sim_reorder_point_units", type number}, {"sim_eoq_units", type number}, {"sim_cycle_stock_units", type number}, {"sim_working_capital_gbp", type number}, {"sim_annual_holding_cost_gbp", type number}, {"sim_annual_ordering_cost_gbp", type number}, {"sim_annual_inventory_cost_gbp", type number}, {"sim_carrying_cost_rate", type number}})
+				in Typed
+
+	annotation PBI_ResultType = Table
+

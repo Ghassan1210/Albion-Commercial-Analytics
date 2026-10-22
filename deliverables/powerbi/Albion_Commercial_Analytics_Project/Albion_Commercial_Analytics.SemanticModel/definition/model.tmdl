@@ -1,0 +1,30 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["dim_date","dim_product","dim_customer","fact_merchandise_sales","fact_returns_and_cancellations","fact_non_merch_adjustments","fact_audit_waterfall","sim_inventory_sku_scenarios"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_date
+ref table dim_product
+ref table dim_customer
+ref table fact_merchandise_sales
+ref table fact_returns_and_cancellations
+ref table fact_non_merch_adjustments
+ref table fact_audit_waterfall
+ref table sim_inventory_sku_scenarios
+ref table DateTableTemplate_e0b38d66-e3d6-47ef-a378-bc0e8f99722a
+ref table LocalDateTable_7f2406c5-b907-41cd-89f6-c25aba287960
+ref table LocalDateTable_eedba5a6-218c-4e38-b37f-d02e653e9a70
+ref table LocalDateTable_69c2751e-df6f-4760-bd75-0dcedf5901c9
+ref table LocalDateTable_55e4c5ed-0e93-40e5-a8a3-0f6210fd691a
+ref table LocalDateTable_5c6287ae-d633-4612-905b-5ce909673f39
+ref table LocalDateTable_73cb8d01-29a7-46c1-b66d-2e4da49904e2
+
