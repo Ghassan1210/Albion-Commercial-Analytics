@@ -1,6 +1,6 @@
 # Albion Commercial Analytics — Final Delivery and Data Audit
 
-**Audit date:** 2026-10-22 (final integration gate)
+**Audit date:** 2026-10-22 (final completion check)
 **Project root:** `C:\Important GHN files\GHN12`
 
 ## Executive summary
@@ -61,7 +61,7 @@ These values are calculated across separate facts and must not be double-counted
 
 ## Power BI status
 
-The source project is at `deliverables\powerbi\Albion_Commercial_Analytics_Project`. Static checks found valid report JSON, eight business tables, twelve measures, and the nine intended single-direction dimension-to-fact relationships; Desktop-generated local date tables/relationships may also be present. Power Query expressions point to the local `deliverables\powerbi\data_model_exports` folder and the repaired fact-date conversion handles timestamp text safely. The current filesystem check found no Power BI Desktop process and no PBIX on either the Desktop or canonical deliverables path, so rendering after the visual build is **NOT VERIFIED**.
+The source project is at `deliverables\powerbi\Albion_Commercial_Analytics_Project`. Static checks found valid report JSON, eight business tables, twelve measures, and the nine intended single-direction dimension-to-fact relationships; Desktop-generated local date tables/relationships may also be present. Power Query expressions point to the local `deliverables\powerbi\data_model_exports` folder and the repaired fact-date conversion handles timestamp text safely. The current filesystem check found no matching PBIX in the canonical deliverables folder, Desktop, or project tree, so the saved-report claim is **NOT VERIFIED**.
 
 The five planned report pages are Executive Overview, Sales Performance, Product & Customer Intelligence, Returns & Reconciliation, and Inventory Scenario Analysis. The project remains machine-path dependent. Desktop previously showed the eight expected row counts, but the generic “Some of the tables have incomplete or no data” banner was also observed, so a fully successful refresh is **not** claimed. The PBIX has not been verified on disk.
 
@@ -82,10 +82,13 @@ Inspection against the valid Executive Overview structure found one confirmed de
 
 Power BI Desktop was not installed at the inspected standard paths and no `PBIDesktop` process was running, so Desktop rendering, refresh, and PBIX save remain unverified.
 
+The user reported seeing all five dashboards in Desktop, but that report could not be independently observed from the available tools. The previous incomplete/no-data warning therefore remains unresolved from an evidence standpoint.
+
 ## Final integration-gate evidence
 
 - Local `main` and `origin/main` both resolve to `97fb38d3e287f064861415273ff763c01581d6e0`.
 - The public GitHub repository exposes the project root and latest commit; no remote publishing gap was observed.
+- The current remote and local `main` both remain at `6b6eb84bfe52ebfb769972ea3ca8c053b47a6b76`.
 - The working tree retains unrelated untracked local/generated items; they were not staged or pushed.
 - The visual-build backup and existing Power BI repair project folders remain present. Protected data, database, workbook, pipeline, tests, and validation JSON were not modified.
 
