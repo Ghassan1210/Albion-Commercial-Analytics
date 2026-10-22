@@ -51,8 +51,8 @@
             }
           ]
         }
-      },
-      "drillFilterOtherVisuals": true
-    }
+      }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

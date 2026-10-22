@@ -76,6 +76,12 @@ The four non-executive page folders originally contained only `page.json` and no
 
 The new visuals use only verified model fields and existing measures. Desktop rendering and filter interaction after this source edit remain **NOT VERIFIED**; the canonical PBIX is still missing. The earlier incomplete/no-data warning remains unresolved.
 
+### Final visual schema repair
+
+Inspection against the valid Executive Overview structure found one confirmed defect in the 16 newly added visuals: `drillFilterOtherVisuals` had been nested inside `visual.query` instead of being a sibling of `query` under `visual`. The active project was backed up at `deliverables\powerbi\Albion_Commercial_Analytics_Project_backup_before_visual_schema_repair`, and all 16 affected definitions were corrected in place. A subsequent check found 21 visuals total, zero JSON/schema-structure errors, complete layouts, and zero unresolved entity/column/measure references against the exported schemas and TMDL measures.
+
+Power BI Desktop was not installed at the inspected standard paths and no `PBIDesktop` process was running, so Desktop rendering, refresh, and PBIX save remain unverified.
+
 ## Final integration-gate evidence
 
 - Local `main` and `origin/main` both resolve to `97fb38d3e287f064861415273ff763c01581d6e0`.

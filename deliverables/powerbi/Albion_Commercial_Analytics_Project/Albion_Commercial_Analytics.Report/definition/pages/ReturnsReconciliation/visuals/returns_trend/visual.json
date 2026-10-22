@@ -50,8 +50,8 @@
             }
           ]
         }
-      },
-      "drillFilterOtherVisuals": true
-    }
+      }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

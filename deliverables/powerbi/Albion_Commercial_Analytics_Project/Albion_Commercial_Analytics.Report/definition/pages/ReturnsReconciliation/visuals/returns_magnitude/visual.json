@@ -31,8 +31,8 @@
             }
           ]
         }
-      },
-      "drillFilterOtherVisuals": true
-    }
+      }
+    },
+    "drillFilterOtherVisuals": true
   }
 }
